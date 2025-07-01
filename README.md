@@ -1,5 +1,4 @@
 <div align="center">
-<img src="https://www.google.com/search?q=https://raw.githubusercontent.com/gist/adarsh1343/8b3c3c1b697e16e45f9e8a0f9a21d283/raw/c340f1a07c08889a6176a9f8f4a13f6e917d5985/url-logo.svg" alt="URL Shortener Logo" width="150">
 <h1 style="color:#22d3ee;">URL Shortener Service with Full DevOps Pipeline</h1>
 <p>A comprehensive, full-stack project demonstrating a complete DevOps lifecycle, from local development to automated cloud deployment.</p>
 </div>
@@ -19,7 +18,6 @@ Continuous Integration & Continuous Deployment (CI/CD) with GitHub Actions for a
 
 <div align="center">
 <p><em>Application Frontend</em></p>
-<img src="https://www.google.com/search?q=https://raw.githubusercontent.com/gist/adarsh1343/8b3c3c1b697e16e45f9e8a0f9a21d283/raw/c340f1a07c08889a6176a9f8f4a13f6e917d5985/url-shortener-screenshot.png" alt="Application Screenshot" width="700">
 </div>
 
 🛠️ Tech Stack & Tools
