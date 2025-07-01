@@ -16,9 +16,6 @@ Continuous Integration & Continuous Deployment (CI/CD) with GitHub Actions for a
 
 <br>
 
-<div align="center">
-<p><em>Application Frontend</em></p>
-</div>
 
 🛠️ Tech Stack & Tools
 This project utilizes a range of technologies to cover the entire development and deployment lifecycle.
