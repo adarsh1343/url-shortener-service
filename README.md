@@ -2,15 +2,6 @@
 <img src="https://www.google.com/search?q=https://raw.githubusercontent.com/gist/adarsh1343/8b3c3c1b697e16e45f9e8a0f9a21d283/raw/c340f1a07c08889a6176a9f8f4a13f6e917d5985/url-logo.svg" alt="URL Shortener Logo" width="150">
 <h1 style="color:#22d3ee;">URL Shortener Service with Full DevOps Pipeline</h1>
 <p>A comprehensive, full-stack project demonstrating a complete DevOps lifecycle, from local development to automated cloud deployment.</p>
-
-<p>
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Node.js-339933%3Fstyle%3Dfor-the-badge%26logo%3Dnodedotjs%26logoColor%3Dwhite" alt="NodeJS">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/PostgreSQL-4169E1%3Fstyle%3Dfor-the-badge%26logo%3Dpostgresql%26logoColor%3Dwhite" alt="PostgreSQL">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Docker-2496ED%3Fstyle%3Dfor-the-badge%26logo%3Ddocker%26logoColor%3Dwhite" alt="Docker">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Terraform-7B42BC%3Fstyle%3Dfor-the-badge%26logo%3Dterraform%26logoColor%3Dwhite" alt="Terraform">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/AWS-232F3E%3Fstyle%3Dfor-the-badge%26logo%3Damazonaws%26logoColor%3Dwhite" alt="AWS">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/GitHub_Actions-2088FF%3Fstyle%3Dfor-the-badge%26logo%3Dgithubactions%26logoColor%3Dwhite" alt="GitHub Actions">
-</p>
 </div>
 
 🚀 Project Overview
@@ -40,23 +31,23 @@ Technology
 
 Backend
 
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Node.js-339933%3Fstyle%3Dflat%26logo%3Dnodedotjs%26logoColor%3Dwhite" alt="NodeJS"> <img src="https://www.google.com/search?q=https://img.shields.io/badge/Express.js-000000%3Fstyle%3Dflat%26logo%3Dexpress%26logoColor%3Dwhite" alt="ExpressJS">
+Node.js, Express.js
 
 Database
 
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/PostgreSQL-4169E1%3Fstyle%3Dflat%26logo%3Dpostgresql%26logoColor%3Dwhite" alt="PostgreSQL">
+PostgreSQL
 
 Frontend
 
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" alt="HTML5"> <img src="https://www.google.com/search?q=https://img.shields.io/badge/Tailwind_CSS-38B2AC%3Fstyle%3Dflat%26logo%3Dtailwind-css%26logoColor%3Dwhite" alt="TailwindCSS">
+HTML5, Tailwind CSS
 
 DevOps
 
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Docker-2496ED%3Fstyle%3Dflat%26logo%3Ddocker%26logoColor%3Dwhite" alt="Docker"> <img src="https://www.google.com/search?q=https://img.shields.io/badge/GitHub_Actions-2088FF%3Fstyle%3Dflat%26logo%3Dgithubactions%26logoColor%3Dwhite" alt="GitHub Actions">
+Docker, GitHub Actions
 
 Cloud & IaC
 
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/AWS-232F3E%3Fstyle%3Dflat%26logo%3Damazonaws%26logoColor%3Dwhite" alt="AWS"> (EC2, VPC, Security Groups) <br> <img src="https://www.google.com/search?q=https://img.shields.io/badge/Terraform-7B42BC%3Fstyle%3Dflat%26logo%3Dterraform%26logoColor%3Dwhite" alt="Terraform">
+AWS (EC2, VPC, Security Groups), Terraform
 
 🏗️ Architecture & Workflow
 The architecture is designed to be robust, scalable, and fully automated.
@@ -196,8 +187,4 @@ SSH_PRIVATE_KEY: The private SSH key to access the EC2 instance.
 
 DOCKERHUB_USERNAME: Your Docker Hub username.
 
-DOCKERHUB_TOKEN: A Docker Hub access token with write permissions.
-
-<div align="center">
-<p>Thank you for checking out this project!</p>
-</div>
+DOCKERHUB_TOKEN: A Docker Hub access token with
