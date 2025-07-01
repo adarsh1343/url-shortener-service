@@ -1,0 +1,43 @@
+  version: '3.8'
+
+  services:
+    # The Node.js application service
+    app:
+      build: . # Build the image from the Dockerfile in the current directory
+      ports:
+        - "3000:3000" # Map port 3000 on the host to port 3000 in the container
+      # Pass environment variables to the app container.
+      # These are crucial for connecting to the database.
+      environment:
+        - POSTGRES_USER=myuser
+        - POSTGRES_PASSWORD=mypassword
+        - POSTGRES_DB=urldb
+        - POSTGRES_HOST=db # The hostname 'db' is the service name of the postgres container
+      # This ensures the 'db' service starts before the 'app' service
+      depends_on:
+        db:
+          condition: service_healthy
+
+    # The PostgreSQL database service
+    db:
+      image: postgres:14-alpine # Use the official PostgreSQL image
+      environment:
+        - POSTGRES_USER=myuser
+        - POSTGRES_PASSWORD=mypassword
+        - POSTGRES_DB=urldb
+      volumes:
+        # This volume persists the database data even if the container is removed.
+        - postgres_data:/var/lib/postgresql/data
+        # This runs the .sql file on first startup to create our table.
+        - ./database.sql:/docker-entrypoint-initdb.d/init.sql
+      healthcheck:
+        # This command checks if the database is ready to accept connections.
+        test: ["CMD-SHELL", "pg_isready -U myuser -d urldb"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+
+  volumes:
+    # Define the named volume for data persistence.
+    postgres_data:
+  

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-900 text-white flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md p-8 space-y-6 bg-slate-800 rounded-xl shadow-lg">
+        <h1 class="text-3xl font-bold text-center text-cyan-400">URL Shortener</h1>
+        <form id="shorten-form" class="space-y-4">
+            <div>
+                <label for="longUrl" class="text-sm font-medium text-slate-300">Enter a long URL to shorten:</label>
+                <input type="url" id="longUrl" name="longUrl" required class="mt-1 block w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500">
+            </div>
+            <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 focus:ring-offset-slate-800">
+                Shorten
+            </button>
+        </form>
+        <div id="result" class="hidden pt-4 text-center">
+            <p class="text-slate-300">Your shortened URL:</p>
+            <div class="mt-2 flex items-center bg-slate-700 rounded-md p-2">
+                <a id="shortUrl" href="#" target="_blank" class="text-lg font-mono text-cyan-400 break-all flex-grow"></a>
+                <button id="copy-button" class="ml-4 bg-slate-600 hover:bg-slate-500 text-white font-bold py-1 px-3 rounded text-sm">Copy</button>
+            </div>
+            <div id="copy-feedback" class="text-green-400 text-sm mt-2 hidden">Copied to clipboard!</div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('shorten-form');
+        const resultDiv = document.getElementById('result');
+        const shortUrlLink = document.getElementById('shortUrl');
+        const copyButton = document.getElementById('copy-button');
+        const copyFeedback = document.getElementById('copy-feedback');
+
+
+        form.addEventListener('submit', async(e) => {
+            e.preventDefault();
+            const longUrl = document.getElementById('longUrl').value;
+
+            try {
+                const response = await fetch('/shorten', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        longUrl
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    shortUrlLink.href = data.shortUrl;
+                    shortUrlLink.textContent = data.shortUrl;
+                    resultDiv.classList.remove('hidden');
+                } else {
+                    alert(`Error: ${data.error}`);
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                alert('An unexpected error occurred.');
+            }
+        });
+
+        copyButton.addEventListener('click', () => {
+            const urlToCopy = shortUrlLink.href;
+            // Use the Clipboard API
+            navigator.clipboard.writeText(urlToCopy).then(() => {
+                copyFeedback.classList.remove('hidden');
+                setTimeout(() => {
+                    copyFeedback.classList.add('hidden');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        });
+    </script>
+</body>
+
+</html>
