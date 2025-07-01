@@ -53,16 +53,16 @@ jobs:
           # The script that will be executed on the remote server.
           script: |
             # Pull the new image from Docker Hub
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/url-shortener-service:${{ github.sha }}
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/url-shortener-service:${{ github.sha }}
 
             # Stop and remove the old containers if they exist
-            docker stop url-shortener-app || true
-            docker rm url-shortener-app || true
-            docker stop url-shortener-db || true
-            docker rm url-shortener-db || true
+            sudo docker stop url-shortener-app || true
+            sudo docker rm url-shortener-app || true
+            sudo docker stop url-shortener-db || true
+            sudo docker rm url-shortener-db || true
 
             # Start the database container
-            docker run -d --name url-shortener-db \
+            sudo docker run -d --name url-shortener-db \
               -e POSTGRES_USER=myuser \
               -e POSTGRES_PASSWORD=mypassword \
               -e POSTGRES_DB=urldb \
@@ -74,7 +74,7 @@ jobs:
             sleep 15
 
             # Start the application container, linking it to the database
-            docker run -d --name url-shortener-app \
+            sudo docker run -d --name url-shortener-app \
               -p 80:3000 \
               -e POSTGRES_USER=myuser \
               -e POSTGRES_PASSWORD=mypassword \
