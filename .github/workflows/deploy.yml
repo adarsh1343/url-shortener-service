@@ -43,7 +43,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Use a pre-made action from the GitHub Marketplace to run SSH commands.
-      # This is much simpler than the manual setup we did in GitLab.
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
@@ -52,34 +51,50 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           # The script that will be executed on the remote server.
           script: |
+            APP_DIR="/home/ec2-user/app"
+
+            # Ensure the app directory exists and is empty for a clean clone
+            rm -rf $APP_DIR
+            mkdir -p $APP_DIR
+
+            # Clone the repository to make the database.sql file available
+            git clone https://github.com/${{ github.repository }}.git $APP_DIR
+
             # Pull the new image from Docker Hub
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/url-shortener-service:${{ github.sha }}
 
-            # Stop and remove the old containers if they exist
+            # Stop and remove old containers and network to ensure a clean start
             sudo docker stop url-shortener-app || true
             sudo docker rm url-shortener-app || true
             sudo docker stop url-shortener-db || true
             sudo docker rm url-shortener-db || true
+            sudo docker network rm url-net || true
+            
+            # Create a dedicated network
+            sudo docker network create url-net
 
-            # Start the database container
+            # **FIX APPLIED HERE**: Start the database container, mounting the init script
+            # This command tells Docker to run our database.sql file on first startup.
             sudo docker run -d --name url-shortener-db \
+              --network url-net \
+              -v $APP_DIR/database.sql:/docker-entrypoint-initdb.d/init.sql \
               -e POSTGRES_USER=myuser \
               -e POSTGRES_PASSWORD=mypassword \
               -e POSTGRES_DB=urldb \
               --restart always \
               postgres:14-alpine
             
-            # Wait for the database to initialize
+            # Wait for the database to initialize and run the script
             echo "Waiting for database to be ready..."
             sleep 15
 
-            # Start the application container, linking it to the database
+            # Start the application container
             sudo docker run -d --name url-shortener-app \
+              --network url-net \
               -p 80:3000 \
               -e POSTGRES_USER=myuser \
               -e POSTGRES_PASSWORD=mypassword \
               -e POSTGRES_DB=urldb \
               -e POSTGRES_HOST=url-shortener-db \
-              --link url-shortener-db:db \
               --restart always \
               ${{ secrets.DOCKERHUB_USERNAME }}/url-shortener-service:${{ github.sha }}
